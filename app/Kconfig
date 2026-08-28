@@ -1,0 +1,80 @@
+menuconfig LED_SUBSYSTEM
+    bool "LED Subsystem"
+    default y
+    help
+        enable the LED blink app... turning this config off...
+        ...hides and disable every LED option below it.
+
+if LED_SUBSYSTEM
+
+
+choice
+    prompt "LED blink sleep time (1s (medium))"
+    default BLINK_SLEEP_1000MS
+    help
+        time interval between led toggles.
+
+config BLINK_SLEEP_250MS
+    bool "Fast"
+
+config BLINK_SLEEP_500MS
+    bool "Quick"
+
+config BLINK_SLEEP_1000MS
+    bool "Normal"
+
+config BLINK_SLEEP_2000MS
+    bool "Slow"
+
+endchoice
+
+config BLINK_SLEEP_TIME_MS
+    int 
+	default 250 if BLINK_SLEEP_250MS
+	default 500 if BLINK_SLEEP_500MS
+	default 1000 if BLINK_SLEEP_1000MS
+	default 2000 if BLINK_SLEEP_2000MS
+    default 1000
+    help
+        Say yes to enable the LED prompt sleep time configuration.
+        ...You should see the LED prompt blinking at the configured interval...
+        ...This doesn't show in the menuconfig because there is no prompt (only the type int is declared)
+
+menuconfig LED_ADVANCED
+    bool "Advanced LED settings"
+    help
+        extra tuning for brightness and fade behaviour.
+
+if LED_ADVANCED
+
+config LED_BRIGHTNESS
+    int "LED Brightness (0-100 )"
+    range 0 100
+    default 100
+    help
+        setting the brightness level for the LED.
+
+config LED_FADE_DURATION_MS
+    int "LED Fade Duration (ms)"
+    range 0 5000
+    default 500
+    help
+        setting the fade duration for the LED.
+
+menu "Expert settings"
+    visible if LED_ADVANCED
+
+config LED_DEBUG
+    bool "Enable LED debugging"
+
+config LED_CUSTOM_PATTERN
+    bool "Custom blink pattern"
+
+endmenu
+
+endif
+
+endif
+
+source "Kconfig.zephyr"
+    

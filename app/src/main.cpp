@@ -1,3 +1,7 @@
+#if !defined(CONFIG_LED_SUBSYSTEM)
+#error "Enable CONFIG_LED_SUBSYSTEM to build the app"
+#endif
+
 #include <zephyr/drivers/gpio.h>
 
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(DT_ALIAS(led0), gpios);
@@ -23,7 +27,7 @@ int main(void)
         } else {
             printk("Toggled LED\n");
         }
-        k_msleep(1000);
+        k_msleep(CONFIG_BLINK_SLEEP_TIME_MS);
     }
 
 }
