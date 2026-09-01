@@ -1,0 +1,16 @@
+#include <zephyr/dt-bindings/gpio/gpio.h>
+
+/ {
+    aliases {
+        led0 = &led0;
+        app-led = &led0;
+    };
+
+    leds {
+        compatible = "gpio-leds";
+        led0: led {
+            gpios = <&gpio1 3 GPIO_ACTIVE_HIGH>;
+            label = "White LED";
+        };
+    };
+};
