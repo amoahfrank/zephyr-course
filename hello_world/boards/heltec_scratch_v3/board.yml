@@ -1,0 +1,6 @@
+board:
+  name: heltec_scratch_v3
+  full_name: heltec Scratch V3 (from scratch)
+  vendor: heltec
+  socs:
+  - name: esp32s3
