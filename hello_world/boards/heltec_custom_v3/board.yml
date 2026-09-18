@@ -1,0 +1,6 @@
+board:
+  name: heltec_custom_v3
+  full_name: heltec Custom V3
+  vendor: heltec
+  socs:
+  - name: esp32s3
