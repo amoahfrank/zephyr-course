@@ -1,0 +1,20 @@
+#include <zephyr/dt-bindings/gpio/gpio.h>
+
+/ {
+	our_driver0: our_driver0 {
+		compatible = "our,driver";
+		gpios = <&gpio1 3 GPIO_ACTIVE_HIGH>; /* GPIO35: white LED */
+		status = "okay";
+	};
+};
+
+/* GPIO35 is also wired to the PWM (LEDC) controller on this board.
+ * Disable it so the GPIO driver owns the pin.
+ */
+&pwm_led_white {
+	status = "disabled";
+};
+
+&ledc0 {
+	status = "disabled";
+};

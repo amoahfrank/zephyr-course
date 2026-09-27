@@ -1,0 +1,9 @@
+menuconfig OUR_DRIVER
+	bool "Our custom LED sensor driver"
+	default y
+	depends on DT_HAS_OUR_DRIVER_ENABLED # only if the node is in the devicetree
+	depends on SENSOR
+	select GPIO
+	help
+	  Simple sensor driver for the on-board LED.
+	  sample_fetch turns the LED on, channel_get turns it off.

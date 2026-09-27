@@ -1,0 +1,74 @@
+menuconfig LED_SUBSYSTEM
+	bool "LED Subsystem"
+	default y
+	help
+	  Enable the LED blink application. Turning this off hides and
+	  disables every LED option below it.
+
+if LED_SUBSYSTEM
+
+choice
+	prompt "LED blink sleep time"
+	default BLINK_SLEEP_1000MS
+	help
+	  Interval between LED toggles.
+
+config BLINK_SLEEP_250MS
+	bool "250ms (fast)"
+
+config BLINK_SLEEP_500MS
+	bool "500ms (quick)"
+
+config BLINK_SLEEP_1000MS
+	bool "1s (medium)"
+
+config BLINK_SLEEP_2000MS
+	bool "2s (slow)"
+
+endchoice
+
+config BLINK_SLEEP_TIME_MS
+	int
+	default 250  if BLINK_SLEEP_250MS
+	default 500  if BLINK_SLEEP_500MS
+	default 1000 if BLINK_SLEEP_1000MS
+	default 2000 if BLINK_SLEEP_2000MS
+	default 1000
+
+menuconfig LED_ADVANCED
+	bool "Advanced LED settings"
+
+if LED_ADVANCED
+
+config LED_BRIGHTNESS
+	int "LED brightness (0-100)"
+	range 0 100
+	default 100
+
+config LED_FADE_DURATION_MS
+	int "LED fade duration (ms)"
+	range 0 5000
+	default 500
+
+menu "Expert settings"
+	visible if LED_ADVANCED
+
+config LED_DEBUG
+	bool "Enable LED debugging"
+
+config LED_CUSTOM_PATTERN
+	bool "Custom blink pattern"
+
+endmenu
+
+endif # LED_ADVANCED
+
+endif # LED_SUBSYSTEM
+
+menu "Custom drivers"
+
+rsource "drivers/our_driver/Kconfig"
+
+endmenu
+
+source "Kconfig.zephyr"

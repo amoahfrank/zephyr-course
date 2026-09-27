@@ -1,0 +1,11 @@
+description: Simple on-board LED exposed through the Zephyr sensor API (L6 exercise)
+
+compatible: "our,driver"
+
+include: base.yaml
+
+properties:
+  gpios:
+    type: phandle-array
+    required: true
+    description: GPIO that drives the LED
