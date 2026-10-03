@@ -16,6 +16,7 @@ int main(void)
 	LOG_INF("%s is ready", driver->name);
 	LOG_INF("Shell: sensor info %s | sensor fetch %s | sensor read %s",
 		driver->name, driver->name, driver->name);
+	LOG_INF("Shell: sensor set %s <0|1> (1 = keep LED on after read)", driver->name);
 
 	/* ....the shell runs in its own thread. */
 	return 0;
